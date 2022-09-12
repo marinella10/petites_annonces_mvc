@@ -22,16 +22,15 @@ if(isset($_GET['url'])){
 }else{
     $url = 'accueil';
 }
-//Si index.php?url= null
-if($_GET['url'] === "accueil"){
-    $url = 'accueil';
-}
+
 
 
 //******************PAGE ACCUEIL *********************//
 if($url === "accueil"){
     $title = "ACCUEIL -petites-Annonces-";
+
     afficherAnnonces();
+
     if(isset($_POST['btn-search-text'])){
         //echo $_POST['recherche'];
         rechercheGlobalMotCle();
@@ -39,8 +38,19 @@ if($url === "accueil"){
     }
 }
 
+//******************DETAILS ANNONCES VISITEUR*****************//
+elseif ($url === "details-annonce-visiteur" && isset($_GET['id_details']) && $_GET['id_details'] > 0){
+    $title = "DETAILS ANNONCES -petites Annonces-";
+    afficherDetailsVisiteurs();
+}
 
 
+//******************CARTE DE FRANCE*********************//
+elseif ($url === "region"){
+    $title = "Annonce -ANNONCE PAR REGION-";
+    $id = $_GET['id'];
+    annonceParRegion($_GET['id']);
+}
 
 
 

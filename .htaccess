@@ -18,4 +18,4 @@ RewriteCond %{REQUEST_FILENAME} !-f
 #usuellement pour les formulaires traités par la méthode HTTP GET) existante,
 #et de la remplacer par celle nouvellement créée. Avec le drapeau [QSA],
 #les chaînes de requête peuvent être combinées.
-RewriteRule ^(.*)$ vue-frontend/index.php?routes=$1 [QSA,L]
+RewriteRule ^(.*)$ vue-frontend/index.php?url=$1 [QSA,L]

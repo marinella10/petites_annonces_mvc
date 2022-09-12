@@ -15,9 +15,9 @@ class Annonces extends Database {
                 INNER JOIN categories ON annonces.categorie_id = categories.id_categorie
                 INNER JOIN regions ON annonces.region_id = regions.id_regions ORDER BY Rand() DESC";
         //On stock le resultat de requète dans une variable $annonces
-        $annonces = $db->query($sql);
-        
-        return $annonces;
+        $annoncesModel = $db->query($sql);
+       // var_dump($annoncesModel);
+        return $annoncesModel;
     }
 
 
@@ -39,6 +39,28 @@ public function afficheAnnoncesTableauDeBordUtilisateur(){
     $requete->execute();
     return $requete->fetchAll();
 }
+
+
+/// Afficherdetailuneannonce///
+///
+    public function afficherDetailsUneAnnonce(){
+        //Coonexion PDO
+        $db = $this->getPDO();
+$sql = "SELECT * FROM annonces 
+                INNER JOIN utilisateurs ON annonces.utilisateur_id = utilisateurs.id_utilisateur 
+                INNER JOIN categories ON annonces.categorie_id = categories.id_categorie 
+                INNER JOIN regions ON annonces.regions_id = regions.id_regions 
+                WHERE id_annonce = ?";
+    //Recup de id utilisateur
+$this->id_annonce = $_GET['id_details'];
+    //Requète préparée
+$request = $db->prepare($sql);
+    //Lié les paramètres
+$request->bindParam(1, $this->id_annonce);
+
+
+
+    }
 
 //////////////////////////RECHERCHE PAR MOT CLE////////////////
 public function rechercheAnnonceMotCle(){
@@ -82,6 +104,7 @@ public function rechercheAnnonceMotCle(){
         <p class="red white-text" style="padding: 20px">AUCUN RESULTAT POUR VOTRE RECHERCHE</p>
         <?php
     }
+
 }
 }
 
